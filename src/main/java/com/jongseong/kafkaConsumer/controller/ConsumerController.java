@@ -9,12 +9,10 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 @Component
 @Slf4j
 public class ConsumerController {
-    private final Logger logger = LoggerFactory.getLogger(ConsumerController.class);
 
     @KafkaListener(topics = "${spring.kafka.topic.test}", groupId = "test-group", containerFactory = "kafkaListenerContainerFactory")
     public void listen(ConsumerRecord consumerRecord) throws Exception {
@@ -41,7 +39,7 @@ public class ConsumerController {
                 }
             }
         } catch (Exception e) {
-            logger.warn("exception:{},{}", e.getMessage(), e.toString());
+            log.warn("exception:{},{}", e.getMessage(), e.toString());
         }
     }
 }
