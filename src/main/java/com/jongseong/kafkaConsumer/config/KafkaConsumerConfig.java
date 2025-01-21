@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
@@ -14,22 +15,23 @@ import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import java.util.HashMap;
 import java.util.Map;
 
+@Profile("local")
 @Configuration
 @EnableKafka
 public class KafkaConsumerConfig {
-    @Value("${spring.kafka.producer.bootstrap-servers}")
+    @Value("${spring.kafka.consumer.bootstrap-servers}")
     private String servers;
 
-    @Value("${spring.kafka.producer.batch-size}")
+    @Value("${spring.kafka.consumer.batch-size}")
     private String size;
 
-    @Value("${spring.kafka.producer.retries}")
+    @Value("${spring.kafka.consumer.retries}")
     private String retries;
 
-    @Value("${spring.kafka.producer.key-deserializer}")
+    @Value("${spring.kafka.consumer.key-deserializer}")
     private String keyDeserializer;
 
-    @Value("${spring.kafka.producer.value-deserializer}")
+    @Value("${spring.kafka.consumer.value-deserializer}")
     private String valueDeserializer;
 
     public Map<String, Object> consumerConfigs() {

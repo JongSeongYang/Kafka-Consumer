@@ -14,7 +14,7 @@ import java.io.IOException;
 @Slf4j
 public class ConsumerController {
 
-    @KafkaListener(topics = "${spring.kafka.topic.test}", groupId = "test-group", containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(topics = "${spring.kafka.topic.test}", groupId = "my-group", containerFactory = "kafkaListenerContainerFactory")
     public void listen(ConsumerRecord consumerRecord) throws Exception {
         try {
             // 파일이 아닌 HDFS(Hadoop Distributed File System), ElasticSearch, Redis 등 다양한 스토리지에 적재 가능
@@ -28,7 +28,7 @@ public class ConsumerController {
                 writer.write("\n");
                 writer.flush();
 
-                System.out.println("DONE");
+                log.info(" >> File Write Done");
             } catch(IOException e) {
                 e.printStackTrace();
             } finally {
